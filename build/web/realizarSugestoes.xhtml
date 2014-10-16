@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>REALIZAR SUGESTÕES</title>
+        <link rel="stylesheet" type="text/css" href="cadastro.css" />
+        <style type="text/css">
+            body {background-color: #c3d7c0; font-size: 12px}
+        </style> 
+    </h:head>
+    <h:body>
+        <div align="center">
+            <p:layout style="min-width:1020px;max-width:1020px;min-height:600px">  
+                <p:layoutUnit position="north" size="100">  
+                    <h:graphicImage url="/imagem/saddo.png" />
+                </p:layoutUnit>  
+
+                <p:layoutUnit position="west" size="220">  
+                    <ui:insert name="menu">
+                        <h:form>
+                            <p:panelMenu style="width:200px">
+
+                                <p:submenu label="Cadastro" >
+                                    <p:menuitem value="Alunos" icon="ui-icon-person"  url="http://localhost:8084/SADOO/faces/cadastroAluno.xhtml" />
+                                    <p:menuitem value="Professores"  icon="ui-icon-person"  url="http://localhost:8084/SADOO/faces/cadastroProfessor.xhtml" />
+                                    <p:menuitem value="Disciplinas"  icon="ui-icon-note" url="http://localhost:8084/SADOO/faces/cadastroDisciplina.xhtml"/>
+                                </p:submenu>
+                                <p:submenu label="Sugerir Disciplinas">
+                                    <p:menuitem value="Realizar Sugestão" url="http://localhost:8084/SADDO/faces/realizarSugestoes.xhtml"  ajax="false" icon="ui-icon-arrowrefresh-1-w"/>
+                                </p:submenu>
+                                <p:separator />
+                                <p:submenu label="Relatórios" >
+                                    <p:menuitem value="Alunos participantes" icon="ui-icon-check" />
+                                    <p:submenu label="Disciplinas" icon="ui-icon-extlink">
+                                        <p:menuitem value="Disciplinas cadastradas" icon="ui-icon-check" />
+                                        <p:menuitem value="Estátisticas" icon="ui-icon-signal" />
+                                    </p:submenu>
+                                </p:submenu>
+                                <p:submenu label="Opções" >
+                                    <p:menuitem value="Sair" icon="ui-icon ui-icon-close" />
+                                </p:submenu>
+                            </p:panelMenu>
+                        </h:form>
+                    </ui:insert>
+                </p:layoutUnit>  
+                <p:layoutUnit position="center">  
+                    <ui:insert name="centro">
+
+                        <h:form> 
+                            
+                            <p:dataScroller value="#{disciplinaMB.listaOptativas}" var="s" chunkSize="10">
+                                <f:facet name="header">
+                                    Disciplinas Optativas
+                                </f:facet>
+
+                                <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+                                 
+                                    <p:outputPanel>
+                                        <h:panelGrid columns="4" cellpadding="5">
+                                            
+                                            <h:outputText value="#{s.codigo} " style="font-weight: bold"/>
+                                           
+
+                                            <h:outputText value="#{s.nome}" style="font-weight: bold"/>
+                                             
+
+                                            <h:outputText value="#{s.cargaHoraria} h" style="font-weight: bold"/>
+                                             <p:selectBooleanCheckbox value="#" />
+                                             
+                                        </h:panelGrid>
+                                    </p:outputPanel>
+                                </h:panelGrid>
+                            </p:dataScroller>
+                        </h:form>
+
+
+                    </ui:insert>
+                </p:layoutUnit>  
+            </p:layout>  
+        </div>
+    </h:body>
+</html>
+
+
+
+
+
+
+
+

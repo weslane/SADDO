@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>PROFESSOR CADASTRO</title>
+        <link rel="stylesheet" type="text/css" href="cadastro.css" />
+        <style type="text/css">
+            body {background-color: #c3d7c0; font-size: 12px}
+        </style> 
+    </h:head>
+    <h:body>
+        <div align="center">
+            <p:layout style="min-width:1020px;max-width:1020px;min-height:600px">  
+                <p:layoutUnit position="north" size="100">  
+                    <h:graphicImage url="/imagem/saddo.png" />
+                </p:layoutUnit>  
+
+                <p:layoutUnit position="west" size="220">  
+                    <ui:insert name="menu">
+                        <h:form>
+                            <p:panelMenu style="width:200px">
+
+                                <p:submenu label="Cadastro" >
+                                    <p:menuitem value="Alunos" icon="ui-icon-person"  outcome="cadastroAluno" />
+                                    <p:menuitem value="Professores"  icon="ui-icon-person"  outcome="cadastroProfessor" />
+                                    <p:menuitem value="Disciplinas"  icon="ui-icon-note" outcome="cadastroDisciplina"/>
+                                </p:submenu>
+                                <p:submenu label="Sugerir Disciplinas">
+                                    <p:menuitem value="Realizar Sugestão" url="http://localhost:8084/SADDO/faces/realizarSugestoes.xhtml" ajax="false" icon="ui-icon-arrowrefresh-1-w"/>
+                                </p:submenu>
+                                <p:separator />
+                                <p:submenu label="Relatórios" >
+                                    <p:menuitem value="Alunos participantes" icon="ui-icon-check" />
+                                    <p:submenu label="Disciplinas" icon="ui-icon-extlink">
+                                        <p:menuitem value="Disciplinas cadastradas" icon="ui-icon-check" />
+                                        <p:menuitem value="Estátisticas" icon="ui-icon-signal" />
+                                    </p:submenu>
+                                </p:submenu>
+                                <p:submenu label="Opções" >
+                                    <p:menuitem value="Sair" icon="ui-icon ui-icon-close" />
+                                </p:submenu>
+                            </p:panelMenu>
+                        </h:form>
+                    </ui:insert>
+                </p:layoutUnit>  
+                <p:layoutUnit position="center">  
+                    <ui:insert name="centro">
+                        <h:form id="formularioProfessor" >
+                            <p:panel id="formCadastroProf" header="Cadastro de Professores" >
+                                <br/>
+                                <p:messages for="formCadastroProf" closable="true"/>
+                                <h:panelGrid columns="3" cellpadding="5"  >
+                                    <h:inputHidden value="#{professorMB.professor.id}"/>
+                                    <h:outputLabel value="Nome:*"/>
+                                    <p:inputText id="nomeProf" maxlength="200" value="#{professorMB.professor.nome}" size="75" required="true" requiredMessage="Campo Obrigatório"/><p:message for="nomeProf"/>
+                                    <h:outputLabel value="Login:*"/>
+                                    <p:inputText id="loginProf" value="#{professorMB.professor.login}" required="true" requiredMessage="Campo Obrigatório"/><p:message for="loginProf"/>
+                                    <h:outputLabel value="Senha:*"/>
+                                    <p:password id="senhaProf" value="#{professorMB.professor.senha}" required="true" requiredMessage="Campo Obrigatório"/><p:message for="senhaProf"/>
+                                    <h:outputLabel value="Matrícula:*"/>
+                                    <p:inputText id="matriculaProf" maxlength="200" value="#{professorMB.professor.matricula}" size="15" required="true" requiredMessage="Campo Obrigatório"/><p:message for="matriculaProf"/>
+                                    <h:outputLabel value="Cargo:*"/>
+                                    <p:inputText id="cargo" maxlength="200" value="#{professorMB.professor.cargo}" size="30" required="true" requiredMessage="Campo Obrigatório"/><p:message for="cargo"/>
+                                </h:panelGrid>
+                                <p:commandButton ajax="false" value="Cadastrar" action="#{professorMB.cadastrar()}"  image="ui-icon-disk" update=":formularioProfessor" />
+                                <p:commandButton ajax="false" value="Alterar" action="#{professorMB.alterar()}" image="ui-icon-refresh" update=":formularioProfessor" />
+                                <p:commandButton ajax="false" value="Limpar" action="#{professorMB.limpar()}" image="ui-icon-cancel"  update=":formularioProfessor"/><br/><br/>
+
+                            </p:panel>
+                        </h:form>
+
+                        <h:form id="tabela">
+                            <p:dataTable   id="dataTable" var="p" emptyMessage=" Não há cadastros" value="#{professorMB.listaProfessores}" 
+                                           paginator="true" rows="5" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} 
+                                           {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                           rowsPerPageTemplate="5,10">
+
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Nome" />
+                                    </f:facet>
+                                    <h:outputText value="${p.nome}"/>
+                                </p:column>
+                                <p:column >  
+                                    <f:facet name="header">
+                                        <h:outputText value="Matrícula" />   
+                                    </f:facet>
+                                    <h:outputText value="${p.matricula}"/>
+                                </p:column>
+
+                                <p:column >  
+                                    <f:facet name="header">
+                                        <h:outputText value="Cargo" />   
+                                    </f:facet>   
+                                    <h:outputText value="${p.cargo}"/>
+                                </p:column>
+
+                                <p:column >
+                                    <f:facet name="header">
+                                        <h:outputText value="Edição" />
+                                    </f:facet>
+                                    <p:commandButton id="Tabalterar" value="Editar" process="#{p.id}" image="ui-icon-pencil" update=":formularioProfessor" ajax="false" >
+                                        <f:setPropertyActionListener value="#{p}" target="#{professorMB.professor}"/>
+                                    </p:commandButton>
+                                </p:column>
+
+                                <p:column >  
+                                    <f:facet name="header">
+                                        <h:outputText value="Exclusão" />   
+                                    </f:facet>   
+                                    <p:commandButton id="Tabexcluir" ajax="false" value="Excluir" action="#{professorMB.excluir(p.id)}" image="ui-icon ui-icon-trash" update=":formularioProfessor, :tabela"/>
+                                </p:column>
+
+                            </p:dataTable>
+                        </h:form>
+
+                    </ui:insert>
+                </p:layoutUnit>  
+            </p:layout>  
+        </div>
+    </h:body>
+</html>
+
+
+
