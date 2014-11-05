@@ -23,7 +23,8 @@ public class Disciplina implements Serializable {
     private String tipo;
     private Integer nivel;
     private String credito;
-
+    
+    public Disciplina(){}
     
     public Long getId() {
         return id;

@@ -32,6 +32,9 @@ public class Aluno implements Serializable {
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "IdDisciplina") 
     private List<Disciplina> disciplinas = new ArrayList<Disciplina>();
+    
+    public Aluno(){
+    }
 
     public List<Disciplina> getDisciplinas() {
         return disciplinas;

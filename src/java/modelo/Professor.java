@@ -23,7 +23,9 @@ public class Professor implements Serializable {
     private String login;
     private String senha;
     private String cargo;
-
+    
+    public Professor(){}
+    
     public String getNome() {
         return nome;
     }

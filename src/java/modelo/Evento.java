@@ -37,7 +37,8 @@ public class Evento implements Serializable {
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "SugesDisciplina") 
     private List<Disciplina> disciplinas = new ArrayList<Disciplina>();
-
+    
+    public Evento(){}
 
     public Long getId() {
         return id;
