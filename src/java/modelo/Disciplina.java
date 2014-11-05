@@ -21,7 +21,33 @@ public class Disciplina implements Serializable {
     private String nome;
     private int cargaHoraria;
     private String tipo;
-    private Integer numSugestoes = 0;
+    private Integer nivel;
+    private String credito;
+
+    
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+    public Integer getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(Integer nivel) {
+        this.nivel = nivel;
+    }
+
+    public String getCredito() {
+        return credito;
+    }
+
+    public void setCredito(String credito) {
+        this.credito = credito;
+    }
 
     public String getCodigo() {
         return codigo;
@@ -45,14 +71,6 @@ public class Disciplina implements Serializable {
 
     public void setCargaHoraria(int cargaHoraria) {
         this.cargaHoraria = cargaHoraria;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     @Override
@@ -92,20 +110,6 @@ public class Disciplina implements Serializable {
      */
     public void setTipo(String tipo) {
         this.tipo = tipo;
-    }
-
-    /**
-     * @return the numSugestoes
-     */
-    public Integer getNumSugestoes() {
-        return numSugestoes;
-    }
-
-    /**
-     * @param numSugestoes the numSugestoes to set
-     */
-    public void setNumSugestoes(Integer numSugestoes) {
-        this.numSugestoes = numSugestoes;
     }
     
 }

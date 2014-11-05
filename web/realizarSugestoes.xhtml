@@ -32,6 +32,7 @@
                                 </p:submenu>
                                 <p:submenu label="Sugerir Disciplinas">
                                     <p:menuitem value="Realizar Sugestão" url="http://localhost:8084/SADDO/faces/realizarSugestoes.xhtml"  ajax="false" icon="ui-icon-arrowrefresh-1-w"/>
+                                     <p:menuitem value="Cadastar Evento" url="http://localhost:8084/SADDO/faces/cadastroEvento.xhtml"  ajax="false" icon="ui-icon-arrowrefresh-1-w"/>
                                 </p:submenu>
                                 <p:separator />
                                 <p:submenu label="Relatórios" >
@@ -65,20 +66,16 @@
                                             
                                             <h:outputText value="#{s.codigo} " style="font-weight: bold"/>
                                            
-
                                             <h:outputText value="#{s.nome}" style="font-weight: bold"/>
                                              
-
                                             <h:outputText value="#{s.cargaHoraria} h" style="font-weight: bold"/>
-                                             <p:selectBooleanCheckbox value="#" />
+                                            <p:selectBooleanCheckbox value="#" />
                                              
                                         </h:panelGrid>
                                     </p:outputPanel>
                                 </h:panelGrid>
                             </p:dataScroller>
                         </h:form>
-
-
                     </ui:insert>
                 </p:layoutUnit>  
             </p:layout>  

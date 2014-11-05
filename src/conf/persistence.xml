@@ -5,6 +5,8 @@
     <class>modelo.Aluno</class>
     <class>modelo.Professor</class>
     <class>modelo.Disciplina</class>
+    <class>modelo.Sugestao</class>
+    <class>modelo.Evento</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/Derby_saddo"/>

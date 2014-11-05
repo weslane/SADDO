@@ -32,6 +32,8 @@
                                 </p:submenu>
                                 <p:submenu label="Sugerir Disciplinas">
                                     <p:menuitem value="Realizar Sugestão" url="http://localhost:8084/SADDO/faces/realizarSugestoes.xhtml"  ajax="false" icon="ui-icon-arrowrefresh-1-w"/>
+                                    <p:menuitem value="Cadastar Evento" url="http://localhost:8084/SADDO/faces/cadastroEvento.xhtml"  ajax="false" icon="ui-icon-arrowrefresh-1-w"/>
+
                                 </p:submenu>
                                 <p:separator />
                                 <p:submenu label="Relatórios" >
@@ -58,11 +60,16 @@
                                     <h:inputHidden value="#{disciplinaMB.disciplina.id}"/>
                                     <h:outputLabel value="Nome:*"/>
                                     <p:inputText id="nomeDisc" maxlength="200" value="#{disciplinaMB.disciplina.nome}" size="78" required="true" requiredMessage="Campo Obrigatório"/><p:message for="nomeDisc" />
-                                    <h:outputLabel value="Código:*"/>
+                                     <h:outputLabel value="Código:*"/>
                                     <p:inputText id="codigo" value="#{disciplinaMB.disciplina.codigo}" required="true" requiredMessage="Campo Obrigatório"/><p:message for="codigo"/>
+                                    
+                                    <h:outputLabel value="Crédito:*"/>
+                                    <p:inputText id="credito" value="#{disciplinaMB.disciplina.credito}" size="10" required="true" requiredMessage="Campo Obrigatório"/><p:message for="credito"/>
+                                    
                                     <h:outputLabel value="Carga Horária:*"/>
                                     <p:inputText id="cargaHoraria" value="#{disciplinaMB.disciplina.cargaHoraria}" size="6" required="true" requiredMessage="Campo Obrigatório"/><p:message for="cargaHoraria"/>
-
+                                    <h:outputLabel value="Nível:*"/>
+                                    <p:inputText id="nivel" value="#{disciplinaMB.disciplina.nivel}" size="6" required="true" requiredMessage="Campo Obrigatório"/><p:message for="nivel"/>
                                     <h:outputLabel for="tipo" value="Tipo: *" />
                                     <p:selectOneMenu id="tipo" value="#{disciplinaMB.disciplina.tipo}" required="true" label="Tipo" requiredMessage="Campo Obrigatório">
                                         <f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true" />
