@@ -25,12 +25,13 @@
                               
                               
                                 <p:submenu label="Cadastro" >
-                                    <p:menuitem value="Alunos" icon="ui-icon-person"  outcome="cadastroAluno" />
-                                    <p:menuitem value="Professores"  icon="ui-icon-person"  outcome="cadastroProfessor" />
-                                    <p:menuitem value="Disciplinas"  icon="ui-icon-note" outcome="cadastroDisciplina"/>
+                                   <p:menuitem value="Alunos" icon="ui-icon-person"  url="http://localhost:8084/SADDO/faces/cadastroAluno.xhtml" />
+                                    <p:menuitem value="Professores"  icon="ui-icon-person"  url="http://localhost:8084/SADDO/faces/cadastroProfessor.xhtml" />
+                                    <p:menuitem value="Disciplinas"  icon="ui-icon-note" url="http://localhost:8084/SADDO/faces/cadastroDisciplina.xhtml"/>
                                 </p:submenu>
                                 <p:submenu label="Sugerir Disciplinas">
                                     <p:menuitem value="Realizar Sugestão" url="http://localhost:8084/SADDO/faces/realizarSugestoes.xhtml"  ajax="false" icon="ui-icon-arrowrefresh-1-w"/>
+                                 <p:menuitem value="Cadastar Evento" url="http://localhost:8084/SADDO/faces/cadastroEvento.xhtml"  ajax="false" icon="ui-icon-arrowrefresh-1-w"/>
                                 </p:submenu>
                                 <p:separator />
                                 <p:submenu label="Relatórios" >

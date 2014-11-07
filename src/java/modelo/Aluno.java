@@ -33,6 +33,15 @@ public class Aluno implements Serializable {
     @JoinColumn(name = "IdDisciplina") 
     private List<Disciplina> disciplinas = new ArrayList<Disciplina>();
 
+     public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+    
     public List<Disciplina> getDisciplinas() {
         return disciplinas;
     }
@@ -89,14 +98,6 @@ public class Aluno implements Serializable {
         this.periodoCorrente = periodoCorrente;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-    
     public void addDisciplina(Disciplina disciplina) {
         disciplinas.add(disciplina);
     }

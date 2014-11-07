@@ -26,12 +26,13 @@
                             <p:panelMenu style="width:200px">
 
                                 <p:submenu label="Cadastro" >
-                                    <p:menuitem value="Alunos" icon="ui-icon-person"  url="http://localhost:8084/SADOO/faces/cadastroAluno.xhtml" />
-                                    <p:menuitem value="Professores"  icon="ui-icon-person"  url="http://localhost:8084/SADOO/faces/cadastroProfessor.xhtml" />
-                                    <p:menuitem value="Disciplinas"  icon="ui-icon-note" url="http://localhost:8084/SADOO/faces/cadastroDisciplina.xhtml"/>
+                                    <p:menuitem value="Alunos" icon="ui-icon-person"  url="http://localhost:8084/SADDO/faces/cadastroAluno.xhtml" />
+                                    <p:menuitem value="Professores"  icon="ui-icon-person"  url="http://localhost:8084/SADDO/faces/cadastroProfessor.xhtml" />
+                                    <p:menuitem value="Disciplinas"  icon="ui-icon-note" url="http://localhost:8084/SADDO/faces/cadastroDisciplina.xhtml"/>
                                 </p:submenu>
                                 <p:submenu label="Sugerir Disciplinas">
                                     <p:menuitem value="Realizar Sugestão" url="http://localhost:8084/SADDO/faces/realizarSugestoes.xhtml"  ajax="false" icon="ui-icon-arrowrefresh-1-w"/>
+                                     <p:menuitem value="Cadastar Evento" url="http://localhost:8084/SADDO/faces/cadastroEvento.xhtml"  ajax="false" icon="ui-icon-arrowrefresh-1-w"/>
                                 </p:submenu>
                                 <p:separator />
                                 <p:submenu label="Relatórios" >
@@ -52,8 +53,7 @@
                     <ui:insert name="centro">
 
                         <h:form> 
-                            
-                            <p:dataScroller value="#{disciplinaMB.listaOptativas}" var="s" chunkSize="10">
+                            <p:dataScroller value="#{disciplinaMB.listaOptativas}" var="e" chunkSize="10">
                                 <f:facet name="header">
                                     Disciplinas Optativas
                                 </f:facet>
@@ -63,22 +63,18 @@
                                     <p:outputPanel>
                                         <h:panelGrid columns="4" cellpadding="5">
                                             
-                                            <h:outputText value="#{s.codigo} " style="font-weight: bold"/>
+                                            <h:outputText value="#{e.disciplina.codigo} " style="font-weight: bold"/>
                                            
-
-                                            <h:outputText value="#{s.nome}" style="font-weight: bold"/>
+                                            <h:outputText value="#{e.disciplina.nome}" style="font-weight: bold"/>
                                              
-
-                                            <h:outputText value="#{s.cargaHoraria} h" style="font-weight: bold"/>
-                                             <p:selectBooleanCheckbox value="#" />
+                                            <h:outputText value="#{e.disciplina.cargaHoraria} h" style="font-weight: bold"/>
+                                            <p:selectBooleanCheckbox value="#" />
                                              
                                         </h:panelGrid>
                                     </p:outputPanel>
                                 </h:panelGrid>
                             </p:dataScroller>
                         </h:form>
-
-
                     </ui:insert>
                 </p:layoutUnit>  
             </p:layout>  

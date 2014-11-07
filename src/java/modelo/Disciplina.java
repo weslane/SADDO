@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -19,9 +21,38 @@ public class Disciplina implements Serializable {
     private Long id;
     private String codigo;
     private String nome;
-    private int cargaHoraria;
+    private Integer cargaHoraria;
     private String tipo;
-    private Integer numSugestoes = 0;
+    private Integer nivel;
+    private String credito;
+    @OneToOne (optional = false)
+    @JoinColumn(name = "professor", referencedColumnName = "id")
+    private Professor professor;
+
+    
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+    public Integer getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(Integer nivel) {
+        this.nivel = nivel;
+    }
+
+    public String getCredito() {
+        return credito;
+    }
+
+    public void setCredito(String credito) {
+        this.credito = credito;
+    }
 
     public String getCodigo() {
         return codigo;
@@ -39,21 +70,42 @@ public class Disciplina implements Serializable {
         this.nome = nome;
     }
 
-    public int getCargaHoraria() {
+    public Integer getCargaHoraria() {
         return cargaHoraria;
     }
 
-    public void setCargaHoraria(int cargaHoraria) {
+    public void setCargaHoraria(Integer cargaHoraria) {
         this.cargaHoraria = cargaHoraria;
     }
-
-    public Long getId() {
-        return id;
+    
+     /**
+     * @return the tipo
+     */
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    /**
+     * @param tipo the tipo to set
+     */
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
+
+    /**
+     * @return the professor
+     */
+    public Professor getProfessor() {
+        return professor;
+    }
+
+    /**
+     * @param professor the professor to set
+     */
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
+    }
+    
 
     @Override
     public int hashCode() {
@@ -79,33 +131,4 @@ public class Disciplina implements Serializable {
     public String toString() {
         return "modelo.Disciplina[ id=" + id + " ]";
     }
-
-    /**
-     * @return the tipo
-     */
-    public String getTipo() {
-        return tipo;
-    }
-
-    /**
-     * @param tipo the tipo to set
-     */
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    /**
-     * @return the numSugestoes
-     */
-    public Integer getNumSugestoes() {
-        return numSugestoes;
-    }
-
-    /**
-     * @param numSugestoes the numSugestoes to set
-     */
-    public void setNumSugestoes(Integer numSugestoes) {
-        this.numSugestoes = numSugestoes;
-    }
-    
 }
