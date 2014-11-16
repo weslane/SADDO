@@ -1,3 +1,4 @@
+
 package modelo;
 
 import java.io.Serializable;
@@ -17,22 +18,22 @@ import javax.persistence.OneToOne;
  * @author Monnalisa Medeiros
  */
 @Entity
-public class Sugestao implements Serializable {
-
+public class Turma implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "optativas", referencedColumnName = "id")
+    private String horario;
+    @OneToOne (optional = false)
+    @JoinColumn(name = "IDdisciplinaTurma", referencedColumnName = "id")
     private Disciplina disciplina;
+    @OneToOne (optional = false)
+    @JoinColumn(name = "IDprofessorTurma", referencedColumnName = "id")
+    private Professor professor;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "alunos")
-    private List<Aluno> alunos = new ArrayList<Aluno>();
-
-    public Sugestao(){
-        
-    }
+    @JoinColumn(name = "IdAlunoTurma") 
+    private List<Aluno> alunos =new ArrayList<Aluno>();
+    
     
     public Long getId() {
         return id;
@@ -40,6 +41,14 @@ public class Sugestao implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+    
+    public List<Aluno> getAlunos() {
+        return alunos;
+    }
+
+    public void setAlunos(List<Aluno> alunos) {
+        this.alunos = alunos;
     }
 
     public Disciplina getDisciplina() {
@@ -50,12 +59,20 @@ public class Sugestao implements Serializable {
         this.disciplina = disciplina;
     }
 
-    public List<Aluno> getAlunos() {
-        return alunos;
+    public Professor getProfessor() {
+        return professor;
     }
 
-    public void setAlunos(List<Aluno> alunos) {
-        this.alunos = alunos;
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
+    }
+    
+    public String getHorario() {
+        return horario;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
     }
 
     @Override
@@ -68,10 +85,10 @@ public class Sugestao implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Sugestao)) {
+        if (!(object instanceof Turma)) {
             return false;
         }
-        Sugestao other = (Sugestao) object;
+        Turma other = (Turma) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -80,7 +97,7 @@ public class Sugestao implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.Optativa[ id=" + id + " ]";
+        return "modelo.Turma[ id=" + id + " ]";
     }
-
+    
 }

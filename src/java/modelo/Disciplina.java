@@ -22,14 +22,13 @@ public class Disciplina implements Serializable {
     private String codigo;
     private String nome;
     private Integer cargaHoraria;
-    private String tipo;
+    private String natureza;
     private Integer nivel;
     private String credito;
-    @OneToOne (optional = false)
-    @JoinColumn(name = "professor", referencedColumnName = "id")
-    private Professor professor;
+    @OneToOne
+    @JoinColumn(name = "IDdisciplina", referencedColumnName = "id")
+    private Disciplina  preRequisito;
 
-    
     public Long getId() {
         return id;
     }
@@ -79,33 +78,26 @@ public class Disciplina implements Serializable {
     }
     
      /**
-     * @return the tipo
+     * @return the natureza
      */
-    public String getTipo() {
-        return tipo;
+    public String getNatureza() {
+        return natureza;
     }
 
     /**
-     * @param tipo the tipo to set
+     * @param natureza the natureza to set
      */
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    /**
-     * @return the professor
-     */
-    public Professor getProfessor() {
-        return professor;
-    }
-
-    /**
-     * @param professor the professor to set
-     */
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
+    public void setNatureza(String natureza) {
+        this.natureza = natureza;
     }
     
+     public Disciplina getPreRequisito() {
+        return preRequisito;
+    }
+
+    public void setPreRequisito(Disciplina preRequisito) {
+        this.preRequisito = preRequisito;
+    }
 
     @Override
     public int hashCode() {

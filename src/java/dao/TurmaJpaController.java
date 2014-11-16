@@ -15,15 +15,15 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import modelo.Sugestao;
+import modelo.Turma;
 
 /**
  *
  * @author Monnalisa Medeiros
  */
-public class SugestaoJpaController implements Serializable {
+public class TurmaJpaController implements Serializable {
 
-    public SugestaoJpaController(EntityManagerFactory emf) {
+    public TurmaJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
@@ -32,12 +32,12 @@ public class SugestaoJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Sugestao sugestao) {
+    public void create(Turma turma) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(sugestao);
+            em.persist(turma);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -46,19 +46,19 @@ public class SugestaoJpaController implements Serializable {
         }
     }
 
-    public void edit(Sugestao sugestao) throws NonexistentEntityException, Exception {
+    public void edit(Turma turma) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            sugestao = em.merge(sugestao);
+            turma = em.merge(turma);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                Long id = sugestao.getId();
-                if (findSugestao(id) == null) {
-                    throw new NonexistentEntityException("The sugestao with id " + id + " no longer exists.");
+                Long id = turma.getId();
+                if (findTurma(id) == null) {
+                    throw new NonexistentEntityException("The turma with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -74,14 +74,14 @@ public class SugestaoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Sugestao sugestao;
+            Turma turma;
             try {
-                sugestao = em.getReference(Sugestao.class, id);
-                sugestao.getId();
+                turma = em.getReference(Turma.class, id);
+                turma.getId();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The sugestao with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The turma with id " + id + " no longer exists.", enfe);
             }
-            em.remove(sugestao);
+            em.remove(turma);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -90,19 +90,19 @@ public class SugestaoJpaController implements Serializable {
         }
     }
 
-    public List<Sugestao> findSugestaoEntities() {
-        return findSugestaoEntities(true, -1, -1);
+    public List<Turma> findTurmaEntities() {
+        return findTurmaEntities(true, -1, -1);
     }
 
-    public List<Sugestao> findSugestaoEntities(int maxResults, int firstResult) {
-        return findSugestaoEntities(false, maxResults, firstResult);
+    public List<Turma> findTurmaEntities(int maxResults, int firstResult) {
+        return findTurmaEntities(false, maxResults, firstResult);
     }
 
-    private List<Sugestao> findSugestaoEntities(boolean all, int maxResults, int firstResult) {
+    private List<Turma> findTurmaEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Sugestao.class));
+            cq.select(cq.from(Turma.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -114,20 +114,20 @@ public class SugestaoJpaController implements Serializable {
         }
     }
 
-    public Sugestao findSugestao(Long id) {
+    public Turma findTurma(Long id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Sugestao.class, id);
+            return em.find(Turma.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getSugestaoCount() {
+    public int getTurmaCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Sugestao> rt = cq.from(Sugestao.class);
+            Root<Turma> rt = cq.from(Turma.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

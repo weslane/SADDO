@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -23,6 +25,8 @@ import util.FacesUtil;
  *
  * @author Monnalisa Medeiros
  */
+@ManagedBean
+@SessionScoped
 public class ProfessorMB {
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
@@ -56,11 +60,11 @@ public class ProfessorMB {
         try {
             dao.create(professor);
             professor = new Professor();
-              FacesUtil.adicionarMensagem("formCadastroProf", "Cadastrado");
+              FacesUtil.adicionarMensagem("formularioProfessor", "Cadastrado");
         } catch (EntityExistsException e) {
-            FacesUtil.adicionarMensagem("formCadastroProf", "Erro: Já está cadastrado");
+            FacesUtil.adicionarMensagem("formularioProfessor", "Erro: Já está cadastrado");
         } catch (RollbackException e) {
-             FacesUtil.adicionarMensagem("formCadastroProf", "Erro: Algo deu errado no cadastro");
+             FacesUtil.adicionarMensagem("formularioProfessor", "Erro: Algo deu errado no cadastro");
         }
         pesquisarTudo();
 
@@ -70,13 +74,13 @@ public class ProfessorMB {
         try {
             dao.edit(professor);
             professor= new Professor();
-            FacesUtil.adicionarMensagem("formCadastroProf", "Alterado");
+            FacesUtil.adicionarMensagem("formularioProfessor", "Alterado");
         } catch (NonexistentEntityException ex) {
             Logger.getLogger(AlunoMB.class.getName()).log(Level.SEVERE, null, ex);
-            FacesUtil.adicionarMensagem("formCadastroProf", "Erro: Já está cadastrado");
+            FacesUtil.adicionarMensagem("formularioProfessor", "Erro: Já está cadastrado");
         } catch (Exception ex) {
             Logger.getLogger(AlunoMB.class.getName()).log(Level.SEVERE, null, ex);
-            FacesUtil.adicionarMensagem("formCadastroProf", "Erro: Algo deu errado na alteração");
+            FacesUtil.adicionarMensagem("formularioProfessor", "Erro: Algo deu errado na alteração");
         }
         pesquisarTudo();
     }
@@ -89,9 +93,9 @@ public class ProfessorMB {
         try {
             dao.destroy(id);
             setProfessor(new Professor());
-            FacesUtil.adicionarMensagem("formCadastroProf", "Excluido");
+            FacesUtil.adicionarMensagem("formularioProfessor", "Excluido");
         } catch (NonexistentEntityException ex) {
-           FacesUtil.adicionarMensagem("formCadastroProf", "Erro: Algo deu errado na exclusão");
+           FacesUtil.adicionarMensagem("formularioProfessor", "Erro: Algo deu errado na exclusão");
             Logger.getLogger(AlunoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
         pesquisarTudo();

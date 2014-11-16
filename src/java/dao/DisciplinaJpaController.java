@@ -37,7 +37,21 @@ public class DisciplinaJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            Disciplina preRequisito = disciplina.getPreRequisito();
+            if (preRequisito != null) {
+                preRequisito = em.getReference(preRequisito.getClass(), preRequisito.getId());
+                disciplina.setPreRequisito(preRequisito);
+            }
             em.persist(disciplina);
+            if (preRequisito != null) {
+                Disciplina oldPreRequisitoOfPreRequisito = preRequisito.getPreRequisito();
+                if (oldPreRequisitoOfPreRequisito != null) {
+                    oldPreRequisitoOfPreRequisito.setPreRequisito(null);
+                    oldPreRequisitoOfPreRequisito = em.merge(oldPreRequisitoOfPreRequisito);
+                }
+                preRequisito.setPreRequisito(disciplina);
+                preRequisito = em.merge(preRequisito);
+            }
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -51,7 +65,27 @@ public class DisciplinaJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            Disciplina persistentDisciplina = em.find(Disciplina.class, disciplina.getId());
+            Disciplina preRequisitoOld = persistentDisciplina.getPreRequisito();
+            Disciplina preRequisitoNew = disciplina.getPreRequisito();
+            if (preRequisitoNew != null) {
+                preRequisitoNew = em.getReference(preRequisitoNew.getClass(), preRequisitoNew.getId());
+                disciplina.setPreRequisito(preRequisitoNew);
+            }
             disciplina = em.merge(disciplina);
+            if (preRequisitoOld != null && !preRequisitoOld.equals(preRequisitoNew)) {
+                preRequisitoOld.setPreRequisito(null);
+                preRequisitoOld = em.merge(preRequisitoOld);
+            }
+            if (preRequisitoNew != null && !preRequisitoNew.equals(preRequisitoOld)) {
+                Disciplina oldPreRequisitoOfPreRequisito = preRequisitoNew.getPreRequisito();
+                if (oldPreRequisitoOfPreRequisito != null) {
+                    oldPreRequisitoOfPreRequisito.setPreRequisito(null);
+                    oldPreRequisitoOfPreRequisito = em.merge(oldPreRequisitoOfPreRequisito);
+                }
+                preRequisitoNew.setPreRequisito(disciplina);
+                preRequisitoNew = em.merge(preRequisitoNew);
+            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -80,6 +114,11 @@ public class DisciplinaJpaController implements Serializable {
                 disciplina.getId();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The disciplina with id " + id + " no longer exists.", enfe);
+            }
+            Disciplina preRequisito = disciplina.getPreRequisito();
+            if (preRequisito != null) {
+                preRequisito.setPreRequisito(null);
+                preRequisito = em.merge(preRequisito);
             }
             em.remove(disciplina);
             em.getTransaction().commit();

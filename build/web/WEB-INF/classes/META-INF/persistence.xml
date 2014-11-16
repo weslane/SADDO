@@ -7,13 +7,14 @@
     <class>modelo.Evento</class>
     <class>modelo.Professor</class>
     <class>modelo.Sugestao</class>
+    <class>modelo.Turma</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/saddo"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/saddo_der"/>
       <property name="javax.persistence.jdbc.password" value="app"/>
       <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
       <property name="javax.persistence.jdbc.user" value="app"/>
-      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+      <property name="javax.persistence.schema-generation.database.action" value="create"/>
     </properties>
   </persistence-unit>
 </persistence>

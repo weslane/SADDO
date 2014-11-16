@@ -1,7 +1,7 @@
 package beans;
 
+import dao.DisciplinaJpaController;
 import dao.EventoJpaController;
-import dao.SugestaoJpaController;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -12,8 +12,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.RollbackException;
 import modelo.Aluno;
+import modelo.Disciplina;
 import modelo.Evento;
-import modelo.Sugestao;
 import util.FacesUtil;
 
 /**
@@ -26,28 +26,36 @@ public class EventoMB {
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
     EventoJpaController daoEvento = new EventoJpaController(emf);
-    SugestaoJpaController daoSugestao = new SugestaoJpaController(emf);
+    DisciplinaJpaController daoDisciplina = new DisciplinaJpaController(emf);
     private Evento evento = new Evento();
     private Aluno aluno = new Aluno();
-    private Sugestao sugestao =new Sugestao();
-    
+    private Disciplina disciplina = new Disciplina();
     private List<Evento> listaEvento = new ArrayList<Evento>();
+    private List<Disciplina> listaDisciplina = new ArrayList<Disciplina>();
+
 
     public EventoMB() {
         evento = new Evento();
         pesquisarTudo();
-        pesquisarOptativas();
-        
+
     }
 
-    public Sugestao getSugestao() {
-        return sugestao;
+    public EntityManagerFactory getEmf() {
+        return emf;
     }
 
-    public void setSugestao(Sugestao sugestao) {
-        this.sugestao = sugestao;
+    public void setEmf(EntityManagerFactory emf) {
+        this.emf = emf;
     }
-    
+
+    public Evento getEvento() {
+        return evento;
+    }
+
+    public void setEvento(Evento evento) {
+        this.evento = evento;
+    }
+
     public Aluno getAluno() {
         return aluno;
     }
@@ -55,13 +63,13 @@ public class EventoMB {
     public void setAluno(Aluno aluno) {
         this.aluno = aluno;
     }
-   
-    public Evento getEvento() {
-        return evento;
+
+    public Disciplina getDisciplina() {
+        return disciplina;
     }
 
-    public void setEvento(Evento evento) {
-        this.evento = evento;
+    public void setDisciplina(Disciplina disciplina) {
+        this.disciplina = disciplina;
     }
 
     public List<Evento> getListaEvento() {
@@ -72,9 +80,39 @@ public class EventoMB {
         this.listaEvento = listaEvento;
     }
 
+    public List<Disciplina> getListaDisciplina() {
+        return listaDisciplina;
+    }
+
+    public void setListaDisciplina(List<Disciplina> listaDisciplina) {
+        this.listaDisciplina = listaDisciplina;
+    }
+
+    public void adicionar(Disciplina d) {
+
+        
+        aluno.setNome("Monnalisa");
+        aluno.setLogin("monna");
+        aluno.setMatricula("123456");
+        aluno.setSenha("monna");
+        aluno.setPeriodoCorrente(8);
+        aluno.setPeriodoInicial("2011.1");
+
+    }
+
+    public void selecaoOptativas() {
+        
+        for(Disciplina d: daoDisciplina.findDisciplinaEntities()){
+
+            if ("Optativa".equals(d.getNatureza())) {
+                adicionar(d);
+            }
+        }
+    }
+
     public void cadastro() {
         
-        pesquisarOptativas();
+        selecaoOptativas();
         try {
             daoEvento.create(evento);
             evento = new Evento();
@@ -85,19 +123,11 @@ public class EventoMB {
             FacesUtil.adicionarMensagem("formCadastroEven", "Erro: Algo deu errado no cadastro");
         }
         pesquisarTudo();
-        
+
     }
 
     public void pesquisarTudo() {
 
         listaEvento = daoEvento.findEventoEntities();
-    }
-
-     public void pesquisarOptativas() {
-        
-         for(Sugestao s: daoSugestao.findSugestaoEntities()){
-         
-             evento.addSugestao(s);
-         }
     }
 }

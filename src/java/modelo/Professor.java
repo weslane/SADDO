@@ -19,7 +19,7 @@ public class Professor implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long id;
     private String nome;
-    private String matricula;
+    private String siape;
     private String login;
     private String senha;
     private String cargo;
@@ -32,12 +32,12 @@ public class Professor implements Serializable {
         this.nome = nome;
     }
 
-    public String getMatricula() {
-        return matricula;
+    public String getSiape() {
+        return siape;
     }
 
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
+    public void setSiape(String siape) {
+        this.siape = siape;
     }
 
     public String getLogin() {

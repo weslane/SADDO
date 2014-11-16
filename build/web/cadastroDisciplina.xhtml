@@ -29,11 +29,11 @@
                                     <p:menuitem value="Alunos" icon="ui-icon-person"  url="http://localhost:8084/SADDO/faces/cadastroAluno.xhtml" />
                                     <p:menuitem value="Professores"  icon="ui-icon-person"  url="http://localhost:8084/SADDO/faces/cadastroProfessor.xhtml" />
                                     <p:menuitem value="Disciplinas"  icon="ui-icon-note" url="http://localhost:8084/SADDO/faces/cadastroDisciplina.xhtml"/>
+                                    <p:menuitem value="Turma"  icon="ui-icon-note" url="http://localhost:8084/SADDO/faces/cadastroTurma.xhtml"/>
                                 </p:submenu>
                                 <p:submenu label="Sugerir Disciplinas">
                                     <p:menuitem value="Realizar Sugestão" url="http://localhost:8084/SADDO/faces/realizarSugestoes.xhtml"  ajax="false" icon="ui-icon-arrowrefresh-1-w"/>
                                     <p:menuitem value="Cadastar Evento" url="http://localhost:8084/SADDO/faces/cadastroEvento.xhtml"  ajax="false" icon="ui-icon-arrowrefresh-1-w"/>
-
                                 </p:submenu>
                                 <p:separator />
                                 <p:submenu label="Relatórios" >
@@ -55,12 +55,12 @@
                         <h:form id="formularioDisc">
                             <p:panel id="formCadastroDisc" header="Cadastro de Disciplinas" >
                                 <br/>
-                                <p:messages for="formCadastroDisc" closable="true"/>
+                                <p:messages for="formularioDisc" closable="true"/>
                                 <h:panelGrid columns="3" cellpadding="4"  >
                                     <h:inputHidden value="#{disciplinaMB.disciplina.id}"/>
                                     <h:outputLabel value="Nome:*"/>
                                     <p:inputText id="nomeDisc" maxlength="200" value="#{disciplinaMB.disciplina.nome}" size="78" required="true" requiredMessage="Campo Obrigatório"/><p:message for="nomeDisc" />
-                                     
+
                                     <h:outputLabel value="Código:*"/>
                                     <p:inputText id="codigo" value="#{disciplinaMB.disciplina.codigo}" required="true" requiredMessage="Campo Obrigatório"/><p:message for="codigo"/>
 
@@ -69,28 +69,28 @@
 
                                     <h:outputLabel value="Carga Horária:*"/>
                                     <p:inputText id="cargaHoraria" value="#{disciplinaMB.disciplina.cargaHoraria}" size="6" required="true" requiredMessage="Campo Obrigatório"/><p:message for="cargaHoraria"/>
-                                    
+
                                     <h:outputLabel value="Nível:*"/>
                                     <p:inputText id="nivel" value="#{disciplinaMB.disciplina.nivel}" size="6" required="true" requiredMessage="Campo Obrigatório"/><p:message for="nivel"/>
 
-                                    <h:outputLabel for="tipo" value="Tipo: *" />
-                                    <p:selectOneMenu id="tipo" value="#{disciplinaMB.disciplina.tipo}" required="true" label="Tipo" requiredMessage="Campo Obrigatório">
+                                    <h:outputLabel for="natureza" value="Natureza: *" />
+                                    <p:selectOneMenu id="natureza" value="#{disciplinaMB.disciplina.natureza}" required="true" label="Natureza" requiredMessage="Campo Obrigatório">
                                         <f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true" />
                                         <f:selectItem itemLabel="Obrigatória" itemValue="Obrigatória" />
                                         <f:selectItem itemLabel="Optativa" itemValue="Optativa" />
                                     </p:selectOneMenu>
-                                   
+
                                     <blockquote/>
-                                    <h:outputLabel for="prof" value="Professor: *" />
-                                    <p:selectOneMenu id="prof" value="#{disciplinaMB.prof.id}" required="true" label="Professor" requiredMessage="Campo Obrigatório">
+                                    <h:outputLabel for="requisito" value="Pré-requisito: "/>
+                                    <p:selectOneMenu id="requisito" value="#{disciplinaMB.disciplina.id}" label="PreRequisito" >
                                         <f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true" />
-                                        <f:selectItems value="#{professorMB.listaProfessores}" var="profItem" itemLabel="#{profItem.nome}" itemValue="#{profItem.id}"/>
+                                        <f:selectItems value="#{disciplinaMB.listaDisciplinas}" var="RequisitoItem" itemLabel="#{RequisitoItem.nome}" itemValue="#{RequisitoItem.id}"/>
                                     </p:selectOneMenu>
-                                     
+
                                 </h:panelGrid>
-                                <p:commandButton ajax="false" value="Cadastrar" action="#{disciplinaMB.cadastrar()}" image="ui-icon-disk" update=":formCadDespesas" />
-                                <p:commandButton ajax="false" value="Alterar" action="#{disciplinaMB.alterar()}" image="ui-icon-refresh" update=":formCadDespesas" />
-                                <p:commandButton ajax="false" value="Limpar" action="#{disciplinaMB.limpar()}" image="ui-icon-cancel" update=":formCadDespesas" /><br/><br/>
+                                <p:commandButton ajax="false" value="Cadastrar" action="#{disciplinaMB.cadastrar()}" image="ui-icon-disk" update=":formularioDisc" />
+                                <p:commandButton ajax="false" value="Alterar" action="#{disciplinaMB.alterar()}" image="ui-icon-refresh" update=":formularioDisc" />
+                                <p:commandButton ajax="false" value="Limpar" action="#{disciplinaMB.limpar()}" image="ui-icon-cancel" update=":formularioDisc" /><br/><br/>
 
                             </p:panel>
                         </h:form>
@@ -126,7 +126,7 @@
                                     <f:facet name="header">
                                         <h:outputText value="Edição" />
                                     </f:facet>
-                                    <p:commandButton id="Tabalterar" value="Editar" process="#{d.id}" image="ui-icon-pencil" update=":formCadDespesas" ajax="false" >
+                                    <p:commandButton id="Tabalterar" value="Editar" process="#{d.id}" image="ui-icon-pencil" update=":formularioDisc" ajax="false" >
                                         <f:setPropertyActionListener value="#{d}" target="#{disciplinaMB.disciplina}"/>
                                     </p:commandButton>
                                 </p:column>

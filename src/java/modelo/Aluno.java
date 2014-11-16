@@ -10,11 +10,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
 /**
  *
- * @author Monnalisa
+ * @author Weslane
  */
 @Entity
 public class Aluno implements Serializable {
@@ -28,8 +28,9 @@ public class Aluno implements Serializable {
     private String senha;
     private String periodoInicial;
     private Integer periodoCorrente;
+    private boolean concluite;
     
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "IdDisciplina") 
     private List<Disciplina> disciplinas = new ArrayList<Disciplina>();
 
@@ -100,6 +101,14 @@ public class Aluno implements Serializable {
 
     public void addDisciplina(Disciplina disciplina) {
         disciplinas.add(disciplina);
+    }
+    
+     public boolean isConcluite() {
+        return concluite;
+    }
+
+    public void setConcluite(boolean concluite) {
+        this.concluite = concluite;
     }
 
     @Override

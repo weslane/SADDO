@@ -54,11 +54,11 @@ public class AlunoMB {
         try {
             dao.create(aluno);
             aluno = new Aluno();
-              FacesUtil.adicionarMensagem("formCadastroAluno", "Cadastrado");
+              FacesUtil.adicionarMensagem("formularioAluno", "Cadastrado");
         } catch (EntityExistsException e) {
-            FacesUtil.adicionarMensagem("formCadastroAluno", "Erro: Já está cadastrado");
+            FacesUtil.adicionarMensagem("formularioAluno", "Erro: Já está cadastrado");
         } catch (RollbackException e) {
-             FacesUtil.adicionarMensagem("formCadastroAluno", "Erro: Algo deu errado no cadastro");
+             FacesUtil.adicionarMensagem("formularioAluno", "Erro: Algo deu errado no cadastro");
         }
         pesquisarTudo();
 
@@ -68,13 +68,13 @@ public class AlunoMB {
         try {
             dao.edit(aluno);
             aluno = new Aluno();
-            FacesUtil.adicionarMensagem("formCadastroAluno", "Alterado");
+            FacesUtil.adicionarMensagem("formularioAluno", "Alterado");
         } catch (NonexistentEntityException ex) {
             Logger.getLogger(AlunoMB.class.getName()).log(Level.SEVERE, null, ex);
-            FacesUtil.adicionarMensagem("formCadastroAluno", "Erro: Já está cadastrado");
+            FacesUtil.adicionarMensagem("formularioAluno", "Erro: Já está cadastrado");
         } catch (Exception ex) {
             Logger.getLogger(AlunoMB.class.getName()).log(Level.SEVERE, null, ex);
-            FacesUtil.adicionarMensagem("formCadastroAluno", "Erro: Algo deu errado na alteração");
+            FacesUtil.adicionarMensagem("formularioAluno", "Erro: Algo deu errado na alteração");
         }
         pesquisarTudo();
     }
@@ -88,9 +88,9 @@ public class AlunoMB {
         try {
             dao.destroy(id);
             setAluno(new Aluno());
-            FacesUtil.adicionarMensagem("formCadastroAluno", "Excluido");
+            FacesUtil.adicionarMensagem("formularioAluno", "Excluido");
         } catch (NonexistentEntityException ex) {
-           FacesUtil.adicionarMensagem("formCadastroAluno", "Erro: Algo deu errado na exclusão");
+           FacesUtil.adicionarMensagem("formularioAluno", "Erro: Algo deu errado na exclusão");
             Logger.getLogger(AlunoMB.class.getName()).log(Level.SEVERE, null, ex);
         } 
         pesquisarTudo();

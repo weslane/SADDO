@@ -7,7 +7,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>PROFESSOR CADASTRO</title>
+        <title>TURMA CADASTRO</title>
         <link rel="stylesheet" type="text/css" href="cadastro.css" />
         <style type="text/css">
             body {background-color: #c3d7c0; font-size: 12px}
@@ -24,7 +24,6 @@
                     <ui:insert name="menu">
                         <h:form>
                             <p:panelMenu style="width:200px">
-
                                 <p:submenu label="Cadastro" >
                                     <p:menuitem value="Alunos" icon="ui-icon-person"  url="http://localhost:8084/SADDO/faces/cadastroAluno.xhtml" />
                                     <p:menuitem value="Professores"  icon="ui-icon-person"  url="http://localhost:8084/SADDO/faces/cadastroProfessor.xhtml" />
@@ -32,7 +31,7 @@
                                     <p:menuitem value="Turmas"  icon="ui-icon-note" url="http://localhost:8084/SADDO/faces/cadastroTurma.xhtml"/>
                                 </p:submenu>
                                 <p:submenu label="Sugerir Disciplinas">
-                                    <p:menuitem value="Realizar Sugestão" url="http://localhost:8084/SADDO/faces/realizarSugestoes.xhtml" ajax="false" icon="ui-icon-arrowrefresh-1-w"/>
+                                    <p:menuitem value="Realizar Sugestão" url="http://localhost:8084/SADDO/faces/realizarSugestoes.xhtml"  ajax="false" icon="ui-icon-arrowrefresh-1-w"/>
                                     <p:menuitem value="Cadastar Evento" url="http://localhost:8084/SADDO/faces/cadastroEvento.xhtml"  ajax="false" icon="ui-icon-arrowrefresh-1-w"/>
                                 </p:submenu>
                                 <p:separator />
@@ -52,66 +51,71 @@
                 </p:layoutUnit>  
                 <p:layoutUnit position="center">  
                     <ui:insert name="centro">
-                        <h:form id="formularioProfessor" >
-                            <p:panel id="formCadastroProf" header="Cadastro de Professores" >
+                        <h:form id="formularioTurma">
+                            <p:panel id="formCadastroTurma" header="Cadastro de Alunos" >
                                 <br/>
-                                <p:messages for="formularioProfessor" closable="true"/>
-                                <h:panelGrid columns="3" cellpadding="5"  >
-                                    <h:inputHidden value="#{professorMB.professor.id}"/>
-                                    <h:outputLabel value="Nome:*"/>
-                                    <p:inputText id="nomeProf" maxlength="200" value="#{professorMB.professor.nome}" size="75" required="true" requiredMessage="Campo Obrigatório"/><p:message for="nomeProf"/>
-                                    <h:outputLabel value="Login:*"/>
-                                    <p:inputText id="loginProf" value="#{professorMB.professor.login}" required="true" requiredMessage="Campo Obrigatório"/><p:message for="loginProf"/>
-                                    <h:outputLabel value="Senha:*"/>
-                                    <p:password id="senhaProf" value="#{professorMB.professor.senha}" required="true" requiredMessage="Campo Obrigatório"/><p:message for="senhaProf"/>
-                                    <h:outputLabel value="Siape:*"/>
-                                    <p:inputText id="matriculaProf" maxlength="200" value="#{professorMB.professor.siape}" size="15" required="true" requiredMessage="Campo Obrigatório"/><p:message for="matriculaProf"/>
-                                    <h:outputLabel for="cargo" value="Cargo:*"/>
-                                    <p:selectOneMenu id="cargo" value="#{professorMB.professor.cargo}" required="true" label="Cargo" requiredMessage="Campo Obrigatório">
+                                <p:messages for="formularioTurma" closable="true"/>
+                                <h:panelGrid columns="2" cellpadding="5"  >
+                                    <h:inputHidden value="#{turmaMB.turma.id}"/>
+
+                                    <div/>
+                                    <h:outputLabel value="Horário:*"/>
+                                    <p:inputText id="horario" maxlength="200" value="#{turmaMB.turma.horario}" size="15" required="true" requiredMessage="Campo Obrigatório"/><p:message for="horario"/>
+
+                                    <div/>
+                                    <h:outputLabel for="professor" value="Professor: *"/>
+                                    <p:selectOneMenu id="professor" value="#{turmaMB.professor.id}" label="Professor" >
                                         <f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true" />
-                                        <f:selectItem itemLabel="Docente" itemValue="Docente" />
-                                        <f:selectItem itemLabel="Coordenador" itemValue="Coordenador" />
-                                    </p:selectOneMenu><p:message for="cargo"/>
+                                        <f:selectItems value="#{professorMB.listaProfessores}" var="profItem" itemLabel="#{profItem.nome}" itemValue="#{profItem.id}"/>
+                                    </p:selectOneMenu> 
+                                   
+                                    <h:outputLabel for="disciplina" value="Disciplina: *"/>
+                                    <p:selectOneMenu id="disciplina" value="#{turmaMB.disciplina.id}" label="Disciplina" >
+                                        <f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true" />
+                                        <f:selectItems value="#{disciplinaMB.listaDisciplinas}" var="discItem" itemLabel="#{discItem.nome}" itemValue="#{discItem.id}"/>
+                                    </p:selectOneMenu> 
                                 </h:panelGrid>
-                                <p:commandButton ajax="false" value="Cadastrar" action="#{professorMB.cadastrar()}"  image="ui-icon-disk" update=":formularioProfessor" />
-                                <p:commandButton ajax="false" value="Alterar" action="#{professorMB.alterar()}" image="ui-icon-refresh" update=":formularioProfessor" />
-                                <p:commandButton ajax="false" value="Limpar" action="#{professorMB.limpar()}" image="ui-icon-cancel"  update=":formularioProfessor"/><br/><br/>
+                                <br/>
+                                <p:commandButton ajax="false" value="Cadastrar" action="#{turmaMB.cadastrar()}" image="ui-icon-disk" update=":formularioTurma"/>
+                                <p:commandButton ajax="false" value="Alterar" action="#{turmaMB.alterar()}" image="ui-icon-refresh" update=":formularioTurma" />
+                                <p:commandButton ajax="false" value="Limpar" action="#{turmaMB.limpar()}" image="ui-icon-cancel" update=":formularioTurma" /><br/><br/>
 
                             </p:panel>
                         </h:form>
 
                         <h:form id="tabela">
-                            <p:dataTable   id="dataTable" var="p" emptyMessage=" Não há cadastros" value="#{professorMB.listaProfessores}" 
+                            <p:dataTable   id="dataTable" var="t" emptyMessage=" Não há cadastros" value="#{turmaMB.listaTurmas}" 
                                            paginator="true" rows="5" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} 
                                            {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                                            rowsPerPageTemplate="5,10">
 
+
                                 <p:column>
                                     <f:facet name="header">
-                                        <h:outputText value="Nome" />
+                                        <h:outputText value="Horário" />
                                     </f:facet>
-                                    <h:outputText value="${p.nome}"/>
+                                    <h:outputText value="${t.horario}"/>
                                 </p:column>
                                 <p:column >  
                                     <f:facet name="header">
-                                        <h:outputText value="Matrícula" />   
+                                        <h:outputText value="Disciplina" />   
                                     </f:facet>
-                                    <h:outputText value="${p.siape}"/>
+                                    <h:outputText value="${t.disciplina}"/>
                                 </p:column>
 
                                 <p:column >  
                                     <f:facet name="header">
-                                        <h:outputText value="Cargo" />   
+                                        <h:outputText value="Professor" />   
                                     </f:facet>   
-                                    <h:outputText value="${p.cargo}"/>
+                                    <h:outputText value="${t.professor}"/>
                                 </p:column>
 
                                 <p:column >
                                     <f:facet name="header">
                                         <h:outputText value="Edição" />
                                     </f:facet>
-                                    <p:commandButton id="Tabalterar" value="Editar" process="#{p.id}" image="ui-icon-pencil" update=":formularioProfessor" ajax="false" >
-                                        <f:setPropertyActionListener value="#{p}" target="#{professorMB.professor}"/>
+                                    <p:commandButton id="Tabalterar" value="Editar" process="#{t.id}" image="ui-icon-pencil" update=":formularioTurma" ajax="false" >
+                                        <f:setPropertyActionListener value="#{t}" target="#{turmaMB.turma}"/>
                                     </p:commandButton>
                                 </p:column>
 
@@ -119,7 +123,7 @@
                                     <f:facet name="header">
                                         <h:outputText value="Exclusão" />   
                                     </f:facet>   
-                                    <p:commandButton id="Tabexcluir" ajax="false" value="Excluir" action="#{professorMB.excluir(p.id)}" image="ui-icon ui-icon-trash" update=":formularioProfessor, :tabela"/>
+                                    <p:commandButton id="Tabexcluir" ajax="false" value="Excluir" action="#{turmaMB.excluir(t.id)}" image="ui-icon ui-icon-trash" update=":formularioTurma, :tabela"/>
                                 </p:column>
 
                             </p:dataTable>

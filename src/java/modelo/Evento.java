@@ -31,8 +31,8 @@ public class Evento implements Serializable {
     private Date dataFinal = new Date();
     
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "listaSugestoes")
-    private List<Sugestao> sugestoes;
+    @JoinColumn(name = "IDturma", referencedColumnName = "id")
+    private List<Turma> turma = new ArrayList<Turma>();
    
     public Long getId() {
         return id;
@@ -58,22 +58,12 @@ public class Evento implements Serializable {
         this.dataFinal = dataFinal;
     }
     
-    /**
-     * @return the sugestoes
-     */
-    public List<Sugestao> getSugestoes() {
-        return sugestoes;
+    public List<Turma> getTurma() {
+        return turma;
     }
 
-    /**
-     * @param sugestoes the sugestoes to set
-     */
-    public void setSugestoes(List<Sugestao> sugestoes) {
-        this.sugestoes = sugestoes;
-    }
-    
-   public void addSugestao(Sugestao item) {
-        sugestoes.add(item);
+    public void setTurma(List<Turma> turma) {
+        this.turma = turma;
     }
    
     @Override
